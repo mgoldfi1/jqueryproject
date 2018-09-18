@@ -1,3 +1,11 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+function displayToggle () {
+  $('#new').on('click', function() {
+    
+    let x = document.getElementById("formholder")
+    if (x.style.display === "none") {
+       x.style.display = "block";
+   } else {
+       x.style.display = "none";
+   }
+  })
+}

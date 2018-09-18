@@ -1,0 +1,25 @@
+
+<%if session[:user_id] == @user.id%>
+<button id="new">New Entry</button><br>
+  <%end%>
+<%if @user.posts.count != 0 %>
+<%@user.posts.each do |post|%>
+  Entry Date: <%=post.date%><br>
+  <button class="expand" data-id="<%=post.id%>">Expand</button>
+  <%end%>
+  <%else%>
+  <br><br>
+  <%end%>
+<div id="formholder">
+  <%= form_for (@post) do |f|%>
+  <%=f.label :breakfast%>
+  <%=f.text_area :breakfast%><br><br>
+  <%=f.label :lunch%>
+  <%=f.text_area :lunch%><br><br>
+  <%=f.label :dinner%>
+  <%=f.text_area :dinner%><br><br>
+  <%=f.hidden_field :user_id, value: session[:user_id]%>
+  <%=f.hidden_field :date, value: Time.new.strftime("%m/%d/%Y")%>
+  <%=f.submit "Save Entry"%>
+  <%end%>
+</div>

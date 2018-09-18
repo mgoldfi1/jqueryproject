@@ -14,3 +14,14 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+//= require users
+//= require posts
+//= require sessions
+//= require comments
+//= require jquery3
+function attachListeners() {
+  displayToggle()
+}
+$(document).ready(function () {
+  attachListeners()
+})

@@ -1,0 +1,7 @@
+
+<h1><%=@user.username%></h1>
+<ul>
+  <li>Weight(lbs): <%=@user.weight%></li>
+  <li>Number of diary entries: <%=@user.posts.count%>  (Click <%=link_to "here", "/user/#{@user.id}/entries"%> to see entries)</li>
+  <li>Number of comments: <%=@user.comments.count%></li>
+</ul>
