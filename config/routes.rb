@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   get '/user/:id/entries', to: 'users#diary'
   resources :users
   resources :posts
+  resources :comments 
 
 end

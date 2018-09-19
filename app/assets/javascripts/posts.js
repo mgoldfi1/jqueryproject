@@ -15,10 +15,11 @@ function toggleComment () {
 
     let x = document.getElementById("newComment")
     if (x.style.display === "none") {
-        x.reset()
+      $('#commentholder').empty()
        x.style.display = "block";
    } else {
        x.style.display = "none";
+       $('#commentholder').empty()
    }
   }
 
@@ -58,10 +59,27 @@ function expandComments() {
     $.get(`/posts/${this.dataset.id}`, function(data){
       for (const x of data.comments) {
         $.get(`/comments/${x.id}`, function(comment){
-          $('#comments').append(`<div class="comment">${comment.user.user_name}: ${comment.body}</div>`)
+          $('#commentholder').append(`<div class="comment">${comment.user.username}: ${comment.body}</div>`)
         })
       }
     })
     toggleComment()
+
+    $('#comment_post_id').attr("value",`${this.dataset.id}`)
+
+
 })
 }
+
+function postComment() {
+  $('#new_comment').submit(function(event){
+    event.preventDefault()
+    $('[value="Post Comment"]').removeAttr("data-disable-with")
+    var comment = $(this).serialize()
+  var posted =  $.post("/comments", comment)
+  posted.done(function(data){
+    $('#comments').append(`<div>${data.user.username}: ${data.body}`)
+
+  })
+    })
+  }

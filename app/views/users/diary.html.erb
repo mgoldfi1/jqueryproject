@@ -3,13 +3,17 @@
   <div id="breakfast"></div>
   <div id="lunch"></div>
   <div id="dinner"></div>
+  <div id="commentbutton">
   <div id="comments">
-    <form style="display: none;" id="newComment" method="POST" action="/comments">
-      <input type="text" name="body">
-      <input type="hidden" value="" name="user_id">
-      <input type="hidden" value="" name="post_id">
-      <input type="submit" value="Post Comment">
-    </form>
+    <div id="newComment" style="display: none;">
+      <%=form_for @comment do |f|%>
+      <%=f.text_field :body%>
+      <%=f.hidden_field :user_id, value: session[:user_id]%>
+      <%=f.hidden_field :post_id, value: ""%>
+      <%=f.submit "Post Comment"%>
+      <%end%>
+      <div id="commentholder"></div>
+  </div>
   </div>
 </div>
 
@@ -38,7 +42,7 @@
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
-  $('form').submit(function(event) {
+  $('#new_post').submit(function(event) {
     event.preventDefault();
     $("input").last().removeAttr("data-disable-with")
     var values = $(this).serialize();

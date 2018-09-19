@@ -23,6 +23,8 @@ def create
   end
 
   def diary
+    @comment = Comment.new 
+    @session = session[:user_id]
     @user = User.find(params[:id])
     @post = Post.new
     session[:token] = params[:id]

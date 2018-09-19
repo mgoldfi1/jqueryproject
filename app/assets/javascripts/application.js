@@ -24,6 +24,7 @@ function attachListeners() {
   showPosts()
   expandPost()
   expandComments()
+  postComment()
 }
 $(document).ready(function () {
   attachListeners()
