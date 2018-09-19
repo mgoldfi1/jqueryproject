@@ -1,15 +1,5 @@
 
 <%if session[:user_id] == @user.id%>
-<button id="new">New Entry</button><br>
-  <%end%>
-<%if @user.posts.count != 0 %>
-<%@user.posts.each do |post|%>
-  Entry Date: <%=post.date%><br>
-  <button class="expand" data-id="<%=post.id%>">Expand</button>
-  <%end%>
-  <%else%>
-  <br><br>
-  <%end%>
 <div id="formholder">
   <%= form_for (@post) do |f|%>
   <%=f.label :breakfast%>
@@ -23,3 +13,30 @@
   <%=f.submit "Save Entry"%>
   <%end%>
 </div>
+<button id="new">New Entry</button><br>
+  <%end%>
+<%if @user.posts.count != 0 %>
+<%@user.posts.each do |post|%>
+  Entry Date: <%=post.date%><br>
+  <button class="expand" data-id="<%=post.id%>">Expand</button>
+  <%end%>
+  <%else%>
+  <br><br>
+  <%end%>
+
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $('form').submit(function(event) {
+    event.preventDefault();
+    var values = $(this).serialize();
+    var posting = $.post('/posts', values);
+    posting.done(function(data) {
+      var product = data;
+      $("#productName").text(product["name"]);
+      $("#productPrice").text("$" + product["price"]);
+      $("#productDescription").text(product["description"]);
+    });
+  });
+});
+</script>
