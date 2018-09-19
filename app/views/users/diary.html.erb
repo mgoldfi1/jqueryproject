@@ -3,12 +3,20 @@
   <div id="breakfast"></div>
   <div id="lunch"></div>
   <div id="dinner"></div>
+  <div id="comments">
+    <form style="display: none;" id="newComment" method="POST" action="/comments">
+      <input type="text" name="body">
+      <input type="hidden" value="" name="user_id">
+      <input type="hidden" value="" name="post_id">
+      <input type="submit" value="Post Comment">
+    </form>
+  </div>
 </div>
 
 
 
 <%if session[:user_id] == @user.id%>
-<div id="formholder">
+<div id="formholder" style="display: none;">
   <%= form_for (@post) do |f|%>
   <%=f.label :breakfast%>
   <%=f.text_area :breakfast%><br><br>
@@ -18,7 +26,7 @@
   <%=f.text_area :dinner%><br><br>
   <%=f.hidden_field :user_id, value: session[:user_id]%>
   <%=f.hidden_field :date, value: Time.new.strftime("%m/%d/%Y")%>
-  <%=f.submit "Save Entry"%>
+  <%=f.submit "Save Entry"%><br><br><br>
   <%end%>
 </div>
 <button id="new">New Entry</button><br>
@@ -42,6 +50,7 @@ $(function () {
       $("#breakfast").text(`Breakfast: ${post["breakfast"]}`);
       $("#lunch").text(`Lunch: ${post["lunch"]}`);
       $("#dinner").text(`Dinner: ${post["dinner"]}`);
+      $('#comments').append(`<button class="showComments" data-id="${post.id}">View Comments</div>`)
     });
   });
 });
