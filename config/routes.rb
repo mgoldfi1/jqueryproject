@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
 
   get '/user/:id/entries', to: 'users#diary'
-
   resources :users
-  resources :posts 
+  resources :posts
 
 end

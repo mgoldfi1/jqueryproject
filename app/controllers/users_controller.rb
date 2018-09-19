@@ -24,8 +24,8 @@ def create
 
   def diary
     @user = User.find(params[:id])
-    @post = Post.new 
-
+    @post = Post.new
+    session[:token] = params[:id]
   end
 
 

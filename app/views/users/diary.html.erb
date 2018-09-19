@@ -1,3 +1,11 @@
+<div id="postholder">
+  <div id="date"></div>
+  <div id="breakfast"></div>
+  <div id="lunch"></div>
+  <div id="dinner"></div>
+</div>
+
+
 
 <%if session[:user_id] == @user.id%>
 <div id="formholder">
@@ -15,27 +23,25 @@
 </div>
 <button id="new">New Entry</button><br>
   <%end%>
-<%if @user.posts.count != 0 %>
-<%@user.posts.each do |post|%>
-  Entry Date: <%=post.date%><br>
-  <button class="expand" data-id="<%=post.id%>">Expand</button>
-  <%end%>
-  <%else%>
-  <br><br>
-  <%end%>
+  <div id="posts">
+  </div>
+
 
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
   $('form').submit(function(event) {
     event.preventDefault();
+    $("input").last().removeAttr("data-disable-with")
     var values = $(this).serialize();
     var posting = $.post('/posts', values);
     posting.done(function(data) {
-      var product = data;
-      $("#productName").text(product["name"]);
-      $("#productPrice").text("$" + product["price"]);
-      $("#productDescription").text(product["description"]);
+      document.getElementById("formholder").style.display = "none"
+      var post = data;
+      $("#date").text(post["date"]);
+      $("#breakfast").text(`Breakfast: ${post["breakfast"]}`);
+      $("#lunch").text(`Lunch: ${post["lunch"]}`);
+      $("#dinner").text(`Dinner: ${post["dinner"]}`);
     });
   });
 });

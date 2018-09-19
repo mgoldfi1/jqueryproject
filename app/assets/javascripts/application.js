@@ -21,6 +21,8 @@
 //= require jquery3
 function attachListeners() {
   displayToggle()
+  showPosts()
+  expandPost()
 }
 $(document).ready(function () {
   attachListeners()
