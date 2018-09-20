@@ -23,7 +23,6 @@ function attachListeners() {
   displayToggle()
   showPosts()
   expandPost()
-  expandComments()
   postComment()
 }
 $(document).ready(function () {

@@ -1,4 +1,6 @@
-
+<% if flash[:success]%>
+<div class="success"><%=flash[:success]%></div>
+<%end%>
 <h1><%=@user.username%></h1>
 <ul>
   <li>Weight(lbs): <%=@user.weight%></li>

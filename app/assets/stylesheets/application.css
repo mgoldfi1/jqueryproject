@@ -39,3 +39,6 @@
       background-color: #4CAF50;
       color: white;
   }
+
+  .notice {color: red;}
+  .success {color: green;}

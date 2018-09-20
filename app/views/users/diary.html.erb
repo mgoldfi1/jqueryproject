@@ -2,9 +2,9 @@
   <div id="date"></div>
   <div id="breakfast"></div>
   <div id="lunch"></div>
-  <div id="dinner"></div>
-  <div id="commentbutton">
-  <div id="comments">
+  <div id="dinner"></div><br><br>
+
+  <div id="comments"></div>
     <div id="newComment" style="display: none;">
       <%=form_for @comment do |f|%>
       <%=f.text_field :body%>
@@ -12,8 +12,6 @@
       <%=f.hidden_field :post_id, value: ""%>
       <%=f.submit "Post Comment"%>
       <%end%>
-      <div id="commentholder"></div>
-  </div>
   </div>
 </div>
 
@@ -54,7 +52,7 @@ $(function () {
       $("#breakfast").text(`Breakfast: ${post["breakfast"]}`);
       $("#lunch").text(`Lunch: ${post["lunch"]}`);
       $("#dinner").text(`Dinner: ${post["dinner"]}`);
-      $('#comments').append(`<button class="showComments" data-id="${post.id}">View Comments</div>`)
+      
     });
   });
 });

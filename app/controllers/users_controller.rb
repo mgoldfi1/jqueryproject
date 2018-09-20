@@ -23,11 +23,16 @@ def create
   end
 
   def diary
-    @comment = Comment.new 
+    if session[:user_id]
+    @comment = Comment.new
     @session = session[:user_id]
     @user = User.find(params[:id])
     @post = Post.new
     session[:token] = params[:id]
+  else
+    flash[:notice] = "Please Log In First"
+    redirect_to root_path
+  end
   end
 
 
