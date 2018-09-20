@@ -26,9 +26,10 @@ function showPosts() {
 
 function expandPost() {
   $('#posts').on("click", "button", function(event) {
+    $('#comments').empty()
     document.getElementById("newComment").style.display = "block"
     $('#comment_post_id').attr("value",`${this.dataset.id}`)
-    $('#comments').empty()
+
     event.preventDefault();
     $.get(`/posts/${this.dataset.id}`, function(data){
       $("#date").text(data["date"]);
@@ -37,7 +38,7 @@ function expandPost() {
       $("#dinner").text(`Dinner: ${data["dinner"]}`);
       for (const x of data.comments) {
         $.get(`/comments/${x.id}`, function(comment){
-          $('#comments').append(`<div class="comment">${comment.user.username}: ${comment.body}</div>`)
+          $('#comments').append(`<div class="comment"><a href="/users/${comment.user_id}">${comment.user.username}</a>: ${comment.body}</div>`)
         })
       }
 
@@ -61,4 +62,24 @@ function postComment() {
 
   })
     })
+  }
+
+
+  function postMake() {
+    $('#new_post').submit(function(event) {
+      event.preventDefault();
+      $("input").last().removeAttr("data-disable-with")
+      var values = $(this).serialize();
+      var posting = $.post('/posts', values);
+      posting.done(function(data) {
+        document.getElementById("formholder").style.display = "none"
+        var post = data;
+        $("#date").text(post["date"]);
+        $("#breakfast").text(`Breakfast: ${post["breakfast"]}`);
+        $("#lunch").text(`Lunch: ${post["lunch"]}`);
+        $("#dinner").text(`Dinner: ${post["dinner"]}`);
+        $('#comments').empty()
+        document.getElementById("newComment").style.display = "none"
+      });
+    });
   }

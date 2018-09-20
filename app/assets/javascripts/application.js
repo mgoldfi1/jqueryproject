@@ -10,9 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+
 //= require activestorage
-//= require turbolinks
 //= require_tree .
 //= require users
 //= require posts
@@ -24,7 +23,9 @@ function attachListeners() {
   showPosts()
   expandPost()
   postComment()
+  postMake()
 }
 $(document).ready(function () {
   attachListeners()
+  console.log("loaded")
 })

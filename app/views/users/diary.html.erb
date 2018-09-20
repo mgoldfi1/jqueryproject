@@ -1,3 +1,4 @@
+<body>
 <div id="postholder">
   <div id="date"></div>
   <div id="breakfast"></div>
@@ -35,25 +36,5 @@
   <%end%>
   <div id="posts">
   </div>
-
-
-
-<script type="text/javascript" charset="utf-8">
-$(function () {
-  $('#new_post').submit(function(event) {
-    event.preventDefault();
-    $("input").last().removeAttr("data-disable-with")
-    var values = $(this).serialize();
-    var posting = $.post('/posts', values);
-    posting.done(function(data) {
-      document.getElementById("formholder").style.display = "none"
-      var post = data;
-      $("#date").text(post["date"]);
-      $("#breakfast").text(`Breakfast: ${post["breakfast"]}`);
-      $("#lunch").text(`Lunch: ${post["lunch"]}`);
-      $("#dinner").text(`Dinner: ${post["dinner"]}`);
-      
-    });
-  });
-});
-</script>
+</body>
+<%= javascript_include_tag 'application'%>
