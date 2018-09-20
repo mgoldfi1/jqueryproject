@@ -60,7 +60,9 @@ function expandPost() {
       $("#breakfast").text(`Breakfast: ${data["breakfast"]}`);
       $("#lunch").text(`Lunch: ${data["lunch"]}`);
       $("#dinner").text(`Dinner: ${data["dinner"]}`);
-      for (const x of data.comments) {
+      var all = data.comments
+      all.sort(function(a,b){return Date.parse(`${a.created_at}`) - Date.parse(`${b.created_at}`)})
+      for (const x of all) {
         let com = new Comment(x)
         $.get(`/comments/${com.id}`, function(comment){
           $('#comments').append(`<div class="comment"><a href="/users/${comment.user_id}">${comment.user.username}</a>(${com.created()}): ${comment.body}</div>`)
@@ -83,7 +85,7 @@ function postComment() {
   var posted =  $.post("/comments", comment)
   posted.done(function(data){
     document.getElementById('new_comment').reset()
-    $('#comments').append(`<div class="comment">${data.user.username}: ${data.body}</div>`)
+    $('#comments').append(`<div class="comment"><a href="/users/${data.user_id}">${data.user.username}</a>(Just Now): ${data.body}</div>`)
 
   })
     })
