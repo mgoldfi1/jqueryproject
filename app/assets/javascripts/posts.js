@@ -1,3 +1,27 @@
+class Comment {
+
+  constructor(args) {
+    for (const x in args) {
+      this[x] = args[x]
+    }
+  }
+
+  created() {
+    let month = new Date(Date.parse(this.created_at)).getMonth() + 1
+    let day = new Date(Date.parse(this.created_at)).getDate()
+    let year = new Date(Date.parse(this.created_at)).getFullYear()
+    return `${month}/${day}/${year}`
+  }
+
+
+
+
+
+
+}
+
+
+
 function displayToggle () {
   $('#new').click(function(event) {
     event.preventDefault()
@@ -37,8 +61,9 @@ function expandPost() {
       $("#lunch").text(`Lunch: ${data["lunch"]}`);
       $("#dinner").text(`Dinner: ${data["dinner"]}`);
       for (const x of data.comments) {
-        $.get(`/comments/${x.id}`, function(comment){
-          $('#comments').append(`<div class="comment"><a href="/users/${comment.user_id}">${comment.user.username}</a>: ${comment.body}</div>`)
+        let com = new Comment(x)
+        $.get(`/comments/${com.id}`, function(comment){
+          $('#comments').append(`<div class="comment"><a href="/users/${comment.user_id}">${comment.user.username}</a>(${com.created()}): ${comment.body}</div>`)
         })
       }
 
